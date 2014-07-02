@@ -1,5 +1,3 @@
-<%- raise "job nil" if job.nil? %>
-
 <tr id="<%= job.name.downcase.gsub(' ', '_') %>">
   <td>
     <h3><%= link_to job.name, job.url, :target => 'about_blank' %></h3>
@@ -36,7 +34,7 @@
   </td>
 
   <td>
-    <%= Time.at(last_time / 1000).strftime "%M:%S" rescue "" %>
+    <%= Time.at(job.latest_build_duration/1000).strftime "%M:%S" rescue "" %>
   </td>
 
   <td>
