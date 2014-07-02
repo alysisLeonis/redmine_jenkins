@@ -1,3 +1,5 @@
+<%- raise "job nil" if job.nil? %>
+
 <tr id="<%= job.name.downcase.gsub(' ', '_') %>">
   <td>
     <h3><%= link_to job.name, job.url, :target => 'about_blank' %></h3>
@@ -34,11 +36,11 @@
   </td>
 
   <td>
-    <%= Time.at(job.latest_build_duration/1000).strftime "%M:%S" %>
+    <%= Time.at(last_time / 1000).strftime "%M:%S" rescue "" %>
   </td>
 
   <td>
-    <% latest_changesets = job.jenkins_builds.first.jenkins_build_changesets %>
+    <% latest_changesets = job.jenkins_builds.first.jenkins_build_changesets rescue [] %>
     <% if latest_changesets.any? %>
       <ul>
         <% latest_changesets.each do |changeset| %>
